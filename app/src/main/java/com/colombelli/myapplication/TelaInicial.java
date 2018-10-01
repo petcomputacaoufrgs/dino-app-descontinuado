@@ -18,6 +18,5 @@ public class TelaInicial extends AppCompatActivity {
 
         Intent abrirCalendario = new Intent(this, CalendarioActivitie.class);
         startActivity(abrirCalendario);
-        
     }
 }
