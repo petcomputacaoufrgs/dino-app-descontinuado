@@ -2,4 +2,6 @@
     <string name="app_name">My Application</string>
     <string name="calend_rio">Calendário</string>
     <string name="hello_activitie">hello activitie</string>
+    <string name="agendar_consulta">Agendar Consulta</string>
+    <string name="mostrar_consultas">Mostrar Consultas</string>
 </resources>
