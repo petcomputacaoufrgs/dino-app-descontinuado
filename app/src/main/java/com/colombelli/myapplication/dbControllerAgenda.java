@@ -1,5 +1,16 @@
 package com.colombelli.myapplication;
 
+/**
+ * Esta classe é responsável por ser quem executa todas as operações no banco de dados.
+ * Ou seja, qualquer outra classe que deseje receber, enviar ou alterar informações do banco,
+ * precisarão criar uma instância desta classe, e operar através dela.
+ *
+ * TOOL UTILIZADOS:
+ *  SQLite   -> https://www.devmedia.com.br/criando-um-crud-com-android-studio-e-sqlite/32815
+ *
+ * @author Henrique Barboza (theevilharry)
+ * PET Computação UFRGS
+ */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,7 +28,14 @@ public class dbControllerAgenda {
     }
 
 
-
+    /**
+     * Este método é responsável por gravar um novo evento no banco de dados, ele segue o
+     * algoritmo padrão de inserção de dados no SQLite, que pode ser encontrado
+     * aqui -> https://www.devmedia.com.br/criando-um-crud-com-android-studio-e-sqlite/32815
+     *
+     * O Método retorna um String com a resposta da gravação no banco.
+     *
+     * */
     public String adicionarEvento(String Data, String Dia, String Mes, String Ano, String Hora, String Tipo, String Anotacoes){
 
         ContentValues valores;
@@ -44,20 +62,31 @@ public class dbControllerAgenda {
         }
     }
 
-
+    /**
+     * Este método é responsável por carregar todos os dados em um banco de dados. Ele segue o
+     * algoritmo padrão de leitura do SQLite usando Cursores.
+     * Ver mais em -> https://developer.android.com/reference/android/database/Cursor
+     *
+     * */
     public Cursor carregarEventos(){
 
         Cursor cursor;
-        String[] campos = new String[]{banco.ID,banco.DATA,banco.DIA,banco.MES,banco.ANO,banco.HORA,banco.TIPO,banco.ANOTACOES};
-        db = banco.getReadableDatabase();
 
+        //Definição do array de strings com os nomes de todas as informações do objeto a serem
+        //coletadas.
+        String[] campos = new String[]{banco.ID,banco.DATA,banco.DIA,banco.MES,banco.ANO,banco.HORA,banco.TIPO,banco.ANOTACOES};
+
+        db = banco.getReadableDatabase(); //Carrega dados do banco.
+
+        // Posiciona um objeto tipo Cursor para apontar para uma busca no banco, com os campos
+        // sendo enviados.
         cursor = db.query(banco.TABELA,campos,null, null,null,null,null,null);
 
         if(cursor != null){
-            cursor.moveToFirst();
+            cursor.moveToFirst(); //Se cursor não é nulo, move cursor para primeiro objeto.
         }
 
-        db.close();
+        db.close(); //Fecha o banco de dados.
         return cursor;
 
 
