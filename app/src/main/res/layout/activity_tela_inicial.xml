@@ -13,8 +13,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/calend_rio"
-        android:onClick="calendario"
+        android:onClick="abreAgenda"
+        android:text="@string/agenda"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
