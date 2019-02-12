@@ -51,5 +51,6 @@
         <item>tipo2</item>
         <item>tipo3</item>
     </string-array>
+    <string name="title_activity_evento_activities">EventoActivities</string>
 
 </resources>

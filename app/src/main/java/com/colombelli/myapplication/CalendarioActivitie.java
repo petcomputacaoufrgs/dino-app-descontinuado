@@ -1,7 +1,7 @@
 package com.colombelli.myapplication;
 
 /**
- * O objetivo desta classe é controlar as atividades da tela de Adicionar Novo Evento à Agenda,
+ * O objetivo desta classe é controlar as atividades da tela de Adicionar Novo Evento à AgendaActivities,
  * incluindo operações da seleção de data através de um CalendarView, organização dos dados
  * selecionados mostrados na tela, e envio deles para o CONTROLLER efetuar a gravação no
  * banco de dados.
@@ -132,9 +132,9 @@ public class CalendarioActivitie extends AppCompatActivity {
         }
 
         /**
-         * Este método é ativado quando o usuário clica no botão de Salvar Novo Evento na Agenda.
+         * Este método é ativado quando o usuário clica no botão de Salvar Novo Evento na AgendaActivities.
          * Ele recebe os strings de texto que o usuário digitou, prepara-os e envia-os para o
-         * CONTROLLER adicioná-los ao banco de dados. No final, ele retorna para a tela Agenda.
+         * CONTROLLER adicioná-los ao banco de dados. No final, ele retorna para a tela AgendaActivities.
          *
          * */
         public void gravarEvento(View v){
@@ -164,8 +164,8 @@ public class CalendarioActivitie extends AppCompatActivity {
 
             Log.d("TEST", resultado);
 
-            //Voltamos para a tela da Agenda.
-            Intent voltarAgenda = new Intent(this, Agenda.class);
+            //Voltamos para a tela da AgendaActivities.
+            Intent voltarAgenda = new Intent(this, AgendaActivities.class);
             startActivity(voltarAgenda);
 
 

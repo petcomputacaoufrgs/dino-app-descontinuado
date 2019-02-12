@@ -1,15 +1,19 @@
 package com.colombelli.myapplication;
 
+import java.io.Serializable;
+
 /**
  * Esta classe tem como único objetivo estruturar o que é o objeto do tipo EVENTO, usado para
- * representar os eventos que o usuário tem marcados em sua Agenda, e como ele deve se comportar.
- * Apenas a listagem de atributos e funções de get() e set().
+ * representar os eventos que o usuário tem marcados em sua AgendaActivities, e como ele deve se comportar.
+ * Apenas a listagem de atributos e funções de get() e set(). "Implements Serializable" para
+ * serializar o conteúdo de cada objeto do tipo Evento, evitando problemas de serialização ao
+ * enviar objetos deste novo tipo de uma Activity para outra.
  *
  * @author Henrique Barboza (theevilharry)
  * PET Computação UFRGS
  */
 
-public class Evento {
+public class Evento implements Serializable {
 
     private int id;
     private String data;
