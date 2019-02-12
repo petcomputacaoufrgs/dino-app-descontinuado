@@ -37,7 +37,7 @@ import android.widget.SimpleCursorAdapter; // Usado apenas para testes de versã
 import android.widget.AdapterView;
 
 
-public class Agenda extends AppCompatActivity {
+public class AgendaActivities extends AppCompatActivity {
 
 
     private ListView listview;          //- ListView para onde mandaremos os dados do banco no Layout.
@@ -61,10 +61,21 @@ public class Agenda extends AppCompatActivity {
         setupEventViews();
         setupListView();
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(),EventoActivities.class);
+                intent.putExtra("Evento", eventos.get(position));
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     /**
-     * Este método inicializa os atributos da classe Agenda, que são o ArrayList de
+     * Este método inicializa os atributos da classe AgendaActivities, que são o ArrayList de
      * eventos carregados do Banco de Dados (Apenas a inicialização (alocamento de espaço) do
      * ArrayList é feito aqui), e a variável ListView que precisa ser linkada ao
      * ListView do arquivo XML de Layout.
@@ -182,7 +193,7 @@ public class Agenda extends AppCompatActivity {
 
     /**
      * Este método tem a simples ação de iniciar a atividade especifica para quando o usuário
-     * deseja adicionar um novo evento à Agenda.
+     * deseja adicionar um novo evento à AgendaActivities.
      * */
     public void abreCalendario(View view){
 
@@ -201,7 +212,7 @@ public class Agenda extends AppCompatActivity {
 
      ADAPTAÇÃO OCORRE EM setupListView();
      Repare que o que encontra-se abaixo é uma Classe, e não um método. Uma classe dentro da classe
-     Agenda. Não precisa estar fora e pode/deve operar apenas dentro de Agenda.
+     AgendaActivities. Não precisa estar fora e pode/deve operar apenas dentro de AgendaActivities.
 
       */
     public class SimpleAdapter extends BaseAdapter{

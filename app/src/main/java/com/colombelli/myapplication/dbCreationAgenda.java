@@ -1,7 +1,7 @@
 package com.colombelli.myapplication;
 
 /**
- * Esta classe tem como único objetivo estruturar o banco de dados local que usaremos na Agenda.
+ * Esta classe tem como único objetivo estruturar o banco de dados local que usaremos na AgendaActivities.
  * Quando a classe CONTROLLER for operar sobre o banco de dados, uma instância de dbCreationAgenda
  * será instanciada para criar o banco de dados de acordo com a organização aqui descrita, com
  * os nomes de cada coluna da tabela, junto com o tipo de dado que é gravado em cada um.

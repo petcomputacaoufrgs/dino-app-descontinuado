@@ -17,7 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarioActivitie" />
-        <activity android:name=".Agenda"></activity>
+        <activity android:name=".AgendaActivities" />
+        <activity
+            android:name=".EventoActivities"
+            android:label="@string/title_activity_evento_activities"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -16,7 +16,7 @@ public class TelaInicial extends AppCompatActivity {
 
     public void abreAgenda(View view){
 
-        Intent abrirAgenda = new Intent(this, Agenda.class);
+        Intent abrirAgenda = new Intent(this, AgendaActivities.class);
         startActivity(abrirAgenda);
     }
 }
