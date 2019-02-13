@@ -51,6 +51,13 @@ public class EventoActivities extends AppCompatActivity {
     }
 
 
+    public void deletarEvento(View view){
+
+        dbControllerAgenda crud = new dbControllerAgenda(getBaseContext());
+        crud.deletarEvento(evento.getId());
+        voltarAgenda(view);
+    }
+
 }
 
 

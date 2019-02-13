@@ -36,7 +36,6 @@ import android.database.Cursor;
 import android.widget.SimpleCursorAdapter; // Usado apenas para testes de versão anterior.
 import android.widget.AdapterView;
 
-
 public class AgendaActivities extends AppCompatActivity {
 
 
@@ -111,6 +110,7 @@ public class AgendaActivities extends AppCompatActivity {
 
         dbControllerAgenda crud = new dbControllerAgenda(getBaseContext());
         Cursor cursor = crud.carregarEventos();
+
 
         /** COM OS DADOS DO BANCO DE DADOS COLOCADOS EM eventosNoBanco, PODEMOS FAZER O QUE QUISER
            COM A LISTA DE EVENTOS MARCADOS ANTES DE MOSTRAR ELA PARA O USUÁRIO.

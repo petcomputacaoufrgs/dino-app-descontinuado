@@ -16,6 +16,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+
 public class dbControllerAgenda {
 
     private SQLiteDatabase db;
@@ -62,6 +63,7 @@ public class dbControllerAgenda {
         }
     }
 
+
     /**
      * Este método é responsável por carregar todos os dados em um banco de dados. Ele segue o
      * algoritmo padrão de leitura do SQLite usando Cursores.
@@ -80,7 +82,7 @@ public class dbControllerAgenda {
 
         // Posiciona um objeto tipo Cursor para apontar para uma busca no banco, com os campos
         // sendo enviados.
-        cursor = db.query(banco.TABELA,campos,null, null,null,null,null,null);
+        cursor = db.query(banco.TABELA,campos,null, null,null,null, null,null);
 
         if(cursor != null){
             cursor.moveToFirst(); //Se cursor não é nulo, move cursor para primeiro objeto.
@@ -92,8 +94,19 @@ public class dbControllerAgenda {
 
     }
 
+    /**
+     * Este método é responsável por deletar o evento relativo ao ID passado como parâmetro
+     * Ver mais em -> https://www.devmedia.com.br/criando-um-crud-com-android-studio-e-sqlite/32815
+     *
+     * */
+    public void deletarEvento(int id){
 
+        String where = banco.ID + "=" + id;
+        db = banco.getReadableDatabase();
+        db.delete(banco.TABELA,where,null);
+        db.close();
 
+    }
 
 
 
