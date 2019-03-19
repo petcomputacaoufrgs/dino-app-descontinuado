@@ -32,6 +32,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+
 import android.database.Cursor;
 import android.widget.SimpleCursorAdapter; // Usado apenas para testes de versão anterior.
 import android.widget.AdapterView;
@@ -119,7 +123,8 @@ public class AgendaActivities extends AppCompatActivity {
 
         ArrayList<Evento> eventosNoBanco = constructList(cursor);
 
-        //>>>APLICAR AQUI FUNÇÃO DE ORDENAR DATAS EM eventosNoBanco.<<<//
+        // Ordena eventos utilizando um compare personalizado para obejtos do tipo Evento (comparadorEventos)
+        Collections.sort(eventosNoBanco, Evento.comparadorEventos);
 
         this.eventos = eventosNoBanco; // Gravamos no ArrayList de eventos da classe, os eventos do banco.
 

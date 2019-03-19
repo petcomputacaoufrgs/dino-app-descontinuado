@@ -1,6 +1,7 @@
 package com.colombelli.myapplication;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Esta classe tem como único objetivo estruturar o que é o objeto do tipo EVENTO, usado para
@@ -90,4 +91,25 @@ public class Evento implements Serializable {
     public void setAnotacoes(String anotacoes) {
         this.anotacoes = anotacoes;
     }
+
+    // Para que se possa utilizar o Collections.sort em um objeto, precisamos definir um novo método de comparação
+    public static Comparator<Evento> comparadorEventos = new Comparator<Evento>() {
+        @Override
+        public int compare(Evento e1, Evento e2) {
+            int result = e1.getAno() - e2.getAno();  // o primeiro critério é o ano
+            if (result == 0)
+                result = e1.getMes() - e2.getMes();  // seguido do mês
+            if (result == 0)
+                result = e1.getDia() - e2.getDia();
+            if (result != 0)
+                return result;  // esse retorno da diferença entre inteiros é utilizado como sintaxe do compare. Para mais INFO, consultar documentação do Collections.sort
+
+            String h1 = e1.getHora().toUpperCase();
+            String h2 = e2.getHora().toUpperCase();
+
+            // A seguinte sintaxe é utilizada para comparar strings e ordená-las em ordem ascendente
+            return h1.compareTo(h2);
+
+        }
+    };
 }
