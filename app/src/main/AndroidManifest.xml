@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TesteFirebase">
-            <intent-filter> <!-- esse intent filter faz iniciar quando lanca o app -->
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter> &lt;!&ndash; esse intent filter faz iniciar quando lanca o app &ndash;&gt;-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".TelaInicial">
-<!--            <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>  -->
+            </intent-filter>
         </activity>
-        <activity android:name=".CalendarioActivitie" />
+        <activity android:name=".CalendarioActivities" />
         <activity android:name=".AgendaActivities" />
         <activity
             android:name=".EventoActivities"

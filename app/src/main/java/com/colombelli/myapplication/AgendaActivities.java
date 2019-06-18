@@ -21,28 +21,34 @@ package com.colombelli.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import android.database.Cursor;
-import android.widget.SimpleCursorAdapter; // Usado apenas para testes de versão anterior.
+
 import android.widget.AdapterView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class AgendaActivities extends AppCompatActivity {
 
-
+    private static final String TAG = "AgendaActivities";
     private ListView listview;          //- ListView para onde mandaremos os dados do banco no Layout.
-    private ArrayList<Evento> eventos; // - Estrutura de dados que guarda os dados do banco antes de
+    private ArrayList<Evento> eventos; // - Estrutura de dados que guarda os dados de eventos do banco antes de
                                       // irem para a tela do usuário.
+
 
     /**
      * onCreate é o método a ser executado na criação da atividade. Como é de costume, sempre
@@ -57,6 +63,44 @@ public class AgendaActivities extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
+
+
+
+        /** Cria referência ao banco de dados myRef ---migrando--- **/
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+
+
+        ValueEventListener testeListener = new ValueEventListener() {
+            @Override
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot eventoSnapshot: dataSnapshot.getChildren()) {
+                    Evento evento = eventoSnapshot.getValue(Evento.class);
+                    Log.d(TAG, evento.toString());
+                    eventos.add(evento);
+                    printa_eventos();
+                    setupListView();
+                }
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        };
+
+
+
+        myRef.child("eventos").addValueEventListener(testeListener);
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+
 
         setupEventViews();
         setupListView();
@@ -74,6 +118,10 @@ public class AgendaActivities extends AppCompatActivity {
 
     }
 
+    private void printa_eventos(){
+        Log.d(TAG, "PEEEEEEEENENENENIS" + eventos.toString());
+    }
+
     /**
      * Este método inicializa os atributos da classe AgendaActivities, que são o ArrayList de
      * eventos carregados do Banco de Dados (Apenas a inicialização (alocamento de espaço) do
@@ -82,7 +130,7 @@ public class AgendaActivities extends AppCompatActivity {
      * */
     private void setupEventViews(){
 
-        this.eventos = new ArrayList<Evento>();
+        this.eventos = new ArrayList<Evento>();// TODO: talvez esse metodo nao seja realmente necessario
 
         listview = (ListView)findViewById(R.id.AgendaListView);
 
@@ -94,7 +142,7 @@ public class AgendaActivities extends AppCompatActivity {
      * (agora podendo ser organizados da maneira que desejarmos)e o Layout de Item Único que
      * cada elemento da lista deve respeitar.
      * */
-    private void setupListView(){
+    private void setupListView(){ //TODO: tocar os eventos pra uma listview
 
         /** LOTS OF SHIT GOING ON HERE, SO TRY TO KEEP UP WITH THE COMMENTS */
 
@@ -106,33 +154,22 @@ public class AgendaActivities extends AppCompatActivity {
         ArrayList<String> horas = new ArrayList<String>();
         ArrayList<String> tipos = new ArrayList<String>();
 
-        /** CRIA-SE NOVA INSTÂNCIA DO CONTROLLER DO BANCO DE DADOS, PORQUE
-           PRECISAMOS LER OS DADOS DO BANCO */
 
-        dbControllerAgenda crud = new dbControllerAgenda(getBaseContext());
-        Cursor cursor = crud.carregarEventos();
 
-        /** COM OS DADOS DO BANCO DE DADOS COLOCADOS EM eventosNoBanco, PODEMOS FAZER O QUE QUISER
-           COM A LISTA DE EVENTOS MARCADOS ANTES DE MOSTRAR ELA PARA O USUÁRIO.
-           CHAMAMOS A constructList PARA MONTAR UMA ARRAYLIST QUE POSSUI TODOS OS ELEMENTOS
-           PRESENTES NO BANCO DE DADOS, EXTRAÍDOS DE cursor. */
 
-        ArrayList<Evento> eventosNoBanco = constructList(cursor);
 
-        //>>>APLICAR AQUI FUNÇÃO DE ORDENAR DATAS EM eventosNoBanco.<<<//
 
-        this.eventos = eventosNoBanco; // Gravamos no ArrayList de eventos da classe, os eventos do banco.
 
         //Percorre o ArrayList para preencher os vetores que serão enviados para
         //o ListView no Layout.
         for(int x = 0; x<this.eventos.size();x++)
         {
-                datas.add(this.eventos.get(x).getData());
-                dias.add(Integer.toString(this.eventos.get(x).getDia()));
-                meses.add(Integer.toString(this.eventos.get(x).getMes()));
-                anos.add(Integer.toString(this.eventos.get(x).getAno()));
-                horas.add(this.eventos.get(x).getHora());
-                tipos.add(this.eventos.get(x).getTipo());
+            datas.add(this.eventos.get(x).getData());
+            dias.add(Integer.toString(this.eventos.get(x).getDia()));
+            meses.add(Integer.toString(this.eventos.get(x).getMes()));
+            anos.add(Integer.toString(this.eventos.get(x).getAno()));
+            horas.add(this.eventos.get(x).getHora());
+            tipos.add(this.eventos.get(x).getTipo());
         }
 
         //EXECUTAMOS O ADAPTER COM OS DADOS SELECIONADOS.
@@ -142,53 +179,6 @@ public class AgendaActivities extends AppCompatActivity {
         }
 
 
-    /**
-     * Este método recebe um objeto do tipo Cursor (que, é o que recebe os dados do banco de dados),
-     * e percorre o mesmo retornando os dados em Cursor em um ArrayList de objetos do tipo Evento.
-     *
-     * */
-    private ArrayList<Evento> constructList(Cursor cursor){
-
-        //Inicializamos ArrayList que retornaremos.
-        ArrayList<Evento> eventList = new ArrayList<Evento>();
-
-
-        // SE O CURSOR POSSUI INSTÂNCIAS DE DADOS
-        if (cursor.moveToFirst()){
-
-            do{
-                Evento evento = new Evento(); //Criamos um novo Evento
-
-                /**
-                 * E PREENCHEMOS O ARRAYLIST CARREGANDO OS DADOS RETIRADOS
-                 * DO BANCO EM CURSOR PARA UM NOVO ELEMENTO DO TIPO EVENTO
-                 * QUE É POSTERIORMENTE ADICIONADO NA LISTA.
-                 *
-                 * Note que para tal, devemos ter conhecimento de como os
-                 * dados estão organizados dentro do banco de dados. Precisamos
-                 * ter em mente a ordem dos campos para acessar o index de cada
-                 * coluna da tabela separadamente. Para saber tal, basta ler o código
-                 * em dbCreationAgenda, onde a tabela do banco de dados é criada.
-                 * */
-
-                evento.setId(cursor.getInt(0));
-                evento.setData(cursor.getString(1));
-                evento.setDia(Integer.parseInt(cursor.getString(2)));
-                evento.setMes(Integer.parseInt(cursor.getString(3)));
-                evento.setAno(Integer.parseInt(cursor.getString(4)));
-                evento.setHora(cursor.getString(5));
-                evento.setTipo(cursor.getString(6));
-                evento.setAnotacoes(cursor.getString(7));
-
-                eventList.add(evento); //Por fim, o novo evento é adicionado a lista.
-
-            }while(cursor.moveToNext());
-        }
-        return eventList;
-}
-
-// LEMBRETE: COMER O CU DE QUEM TÁ LENDO
-
 
 
     /**
@@ -197,7 +187,7 @@ public class AgendaActivities extends AppCompatActivity {
      * */
     public void abreCalendario(View view){
 
-        Intent abrirCalendario = new Intent(this, CalendarioActivitie.class);
+        Intent abrirCalendario = new Intent(this, CalendarioActivities.class);
         startActivity(abrirCalendario);
     }
 
@@ -301,41 +291,6 @@ public class AgendaActivities extends AppCompatActivity {
 
         }
     }
-
-    /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ A PARTIR DAQUI,
-     * ENCONTRAM-SE MÉTODOS PARA ENVIAR DADOS DO BANCO PARA UM LISTVIEW, DIRETO DO
-     * CURSOR, SEM ANTES PASSÁ-LOS POR UMA ESTRUTURA DE DADOS. Código escrito na versão anterior
-     * para fins de teste de funcionalidades do código, e deixado aqui para fins de aprendizagem.
-     * >>>NADA ABAIXO ESTÁ ATUALMENTE SENDO USADO NO ALGORITMO.<<<*/
-
-    public class SimpleCursorAdapter extends android.widget.SimpleCursorAdapter{
-
-        public SimpleCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
-            super(context, layout, c, from, to);
-        }
-    }
-
-    private void setupListViewFromCursor(){
-
-
-        dbControllerAgenda crud = new dbControllerAgenda(getBaseContext());
-        Cursor cursor = crud.carregarEventos();
-
-        this.eventos = constructList(cursor);
-
-        String[] nomeCampos = new String[] {dbCreationAgenda.DATA,dbCreationAgenda.DIA,dbCreationAgenda.MES,dbCreationAgenda.ANO,dbCreationAgenda.HORA,dbCreationAgenda.TIPO};
-        int[] idList = new int[] {R.id.data,R.id.dia,R.id.mes,R.id.ano,R.id.hora,R.id.tipoepa};
-
-        SimpleCursorAdapter adaptador = new SimpleCursorAdapter(getBaseContext(), R.layout.agendal_view_single_item,cursor,nomeCampos,idList);
-
-        listview.setAdapter(adaptador);
-
-
-
-    }
-
-
-
 
 
 

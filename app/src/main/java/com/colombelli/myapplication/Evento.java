@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class Evento implements Serializable {
 
     private int id;
+    private String nome;
     private String data;
     private int dia;
     private int mes;        //Alguns atributos são INT para fins de facilitar comparação.
@@ -27,13 +28,19 @@ public class Evento implements Serializable {
 
     //A PARTIR DAQUI É TUDO GET E SET
 
+
     public int getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public int getDia() {
         return dia;
     }
+
 
     public int getMes() {
         return mes;
@@ -63,6 +70,10 @@ public class Evento implements Serializable {
         this.id = id;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public void setDia(int dia) {
         this.dia = dia;
     }
@@ -89,5 +100,20 @@ public class Evento implements Serializable {
 
     public void setAnotacoes(String anotacoes) {
         this.anotacoes = anotacoes;
+    }
+
+    @Override
+    public String toString() {
+        return "Evento{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", data='" + data + '\'' +
+                ", dia=" + dia +
+                ", mes=" + mes +
+                ", ano=" + ano +
+                ", hora='" + hora + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", anotacoes='" + anotacoes + '\'' +
+                '}';
     }
 }

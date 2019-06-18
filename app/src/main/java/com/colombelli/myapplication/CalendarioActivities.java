@@ -27,7 +27,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CalendarioActivitie extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class CalendarioActivities extends AppCompatActivity {
 
     //Atributo do tipo CalendarView que representará o Calendário no Layout
     private CalendarView mCalendarView;
@@ -138,9 +141,11 @@ public class CalendarioActivitie extends AppCompatActivity {
          *
          * */
         public void gravarEvento(View v){
+            Evento evento = new Evento();
+            //criamos referencia ao banco
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference();
 
-            //Instanciamos classe Controller para gravar no banco.
-            dbControllerAgenda crud = new dbControllerAgenda(getBaseContext());
 
             // Linkamos variáveis tipo EditText com os textos digitados pelo usuário no Layout.
             EditText Hora = (EditText)findViewById(R.id.editText4);
@@ -148,17 +153,28 @@ public class CalendarioActivitie extends AppCompatActivity {
             EditText Anotacoes = (EditText)findViewById(R.id.editText6);
 
             //ORGANIZAMOS TODOS OS DADOS E CONVERTEMOS ELES PARA STRINGS
-            String DataString = selectedDay + "/" + selectedMonth + "/" + selectedYear;
-            String DiaString = String.valueOf(selectedDay);
-            String MesString = String.valueOf(selectedMonth);
-            String AnoString = String.valueOf(selectedYear);
-            String HoraString = Hora.getText().toString();
-            String TipoString = Tipo.getText().toString();
-            String AnotacoesString = Anotacoes.getText().toString();
+            String dataString = selectedDay + "/" + selectedMonth + "/" + selectedYear;
+            String diaString = String.valueOf(selectedDay);
+            String mesString = String.valueOf(selectedMonth);
+            String anoString = String.valueOf(selectedYear);
+            String horaString = Hora.getText().toString();
+            String tipoString = Tipo.getText().toString();
+            String anotacoesString = Anotacoes.getText().toString();
+
+            evento.setData(dataString);
+            evento.setDia(selectedDay);
+            evento.setMes(selectedMonth);
+            evento.setAno(selectedYear);
+            evento.setHora(horaString);
+            evento.setTipo(tipoString);
+            evento.setAnotacoes(anotacoesString);
+
+            String key = myRef.child("eventos").push().getKey();
+
+            myRef.child("eventos").child(key).setValue(evento); //talvez n funcione sei la
 
             //Adicionamos o Novo Evento ao banco de dados, e checamos resultado da operação.
-            String resultado;
-            resultado = crud.adicionarEvento(DataString,DiaString,MesString,AnoString,HoraString,TipoString,AnotacoesString);
+            String resultado = evento.toString();
 
             Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
 
