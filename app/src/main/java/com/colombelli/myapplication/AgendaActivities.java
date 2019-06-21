@@ -66,9 +66,11 @@ public class AgendaActivities extends AppCompatActivity {
 
 
 
+
         /** Cria referência ao banco de dados myRef ---migrando--- **/
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
+
 
 
 
@@ -80,7 +82,6 @@ public class AgendaActivities extends AppCompatActivity {
                     Evento evento = eventoSnapshot.getValue(Evento.class);
                     Log.d(TAG, evento.toString());
                     eventos.add(evento);
-                    printa_eventos();
                     setupListView();
                 }
 
@@ -118,9 +119,6 @@ public class AgendaActivities extends AppCompatActivity {
 
     }
 
-    private void printa_eventos(){
-        Log.d(TAG, "PEEEEEEEENENENENIS" + eventos.toString());
-    }
 
     /**
      * Este método inicializa os atributos da classe AgendaActivities, que são o ArrayList de

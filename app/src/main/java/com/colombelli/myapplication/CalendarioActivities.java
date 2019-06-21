@@ -59,6 +59,9 @@ public class CalendarioActivities extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario_activitie);
 
+
+
+
         //Associamos nossas variávies de TextView e de CalendarView aos seus respectivos
         //representantes no arquivo Layout.
         dataNaInterface = (TextView)findViewById(R.id.datacompleta); // Relaciona TextView do layout com a instância da classe.
@@ -143,6 +146,7 @@ public class CalendarioActivities extends AppCompatActivity {
         public void gravarEvento(View v){
             Evento evento = new Evento();
             //criamos referencia ao banco
+
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference();
 
