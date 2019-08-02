@@ -59,8 +59,8 @@ public class CalendarioActivities extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             hour = hourOfDay;
-            h_minute=minute;
-            Toast.makeText(CalendarioActivities.this,hour+ " : " + h_minute, Toast.LENGTH_LONG).show();
+            h_minute = minute;
+            Toast.makeText(CalendarioActivities.this,hour + " : " + h_minute, Toast.LENGTH_LONG).show();
         }
     };
 
@@ -74,7 +74,7 @@ public class CalendarioActivities extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendario_activitie);
+        setContentView(R.layout.activity_calendario_activities);
 
 
 
@@ -99,7 +99,7 @@ public class CalendarioActivities extends AppCompatActivity {
 
             //SALVA DATA SELECIONADA NAS VARIÁVEIS DA CLASSE:
             selectedDay = dayOfMonth;
-            selectedMonth = month +1; //NO ANDROID STUDIO, 0 = JANEIRO E 11 = DEZEMBRO
+            selectedMonth = month + 1; //NO ANDROID STUDIO, 0 = JANEIRO E 11 = DEZEMBRO
             selectedYear = year;
 
             //SELECIONA O STRING DO MÊS SELECIONADO:
@@ -208,7 +208,10 @@ public class CalendarioActivities extends AppCompatActivity {
             String diaString = String.valueOf(selectedDay);
             String mesString = String.valueOf(selectedMonth);
             String anoString = String.valueOf(selectedYear);
-            String horaString = Hora.getText().toString();
+            String horaString = String.format("%02d : %02d",
+                    hour,
+                    h_minute);
+
             String tipoString = Tipo.getText().toString();
             String anotacoesString = Anotacoes.getText().toString();
 
@@ -231,9 +234,9 @@ public class CalendarioActivities extends AppCompatActivity {
                 Log.d("PARSER", "didn't work lol");
             }
 
-            String key = myRef.child("eventos").push().getKey();
+            String key = myRef.child("eventos").push().getKey(); //cria o id unico para o evento novo
 
-            myRef.child("eventos").child(key).setValue(evento); //talvez n funcione sei la
+            myRef.child("eventos").child(key).setValue(evento); //insere o evento novo com esse id
 
             //Adicionamos o Novo Evento ao banco de dados, e checamos resultado da operação.
             String resultado = evento.toString();
@@ -242,9 +245,8 @@ public class CalendarioActivities extends AppCompatActivity {
 
             Log.d("TEST", resultado);
 
-            //Voltamos para a tela da AgendaActivities.
-            Intent voltarAgenda = new Intent(this, AgendaActivities.class);
-            startActivity(voltarAgenda);
+            //Voltamos para a tela da AgendaActivities
+            finish();
 
 
         }
