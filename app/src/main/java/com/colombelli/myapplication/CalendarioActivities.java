@@ -16,19 +16,26 @@ package com.colombelli.myapplication;
  * PET Computação UFRGS
  */
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class CalendarioActivities extends AppCompatActivity {
 
@@ -39,13 +46,23 @@ public class CalendarioActivities extends AppCompatActivity {
     private int selectedDay;
     private int selectedMonth;
     private int selectedYear;
-
+    private Button hourButton;
     private TextView dataNaInterface; //Textview para representar o local do Layout onde mostramos
                                      // a data selecionada pelo usuário antes de salvarmos.
 
     private String dataEscrita; //Strings Auxiliares.
+    int hour, h_minute;
     private String mesEscrito;
+    private int dialogID = 0;
 
+    protected TimePickerDialog.OnTimeSetListener pimepickerlistener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            hour = hourOfDay;
+            h_minute=minute;
+            Toast.makeText(CalendarioActivities.this,hour+ " : " + h_minute, Toast.LENGTH_LONG).show();
+        }
+    };
 
 
     /**
@@ -135,7 +152,37 @@ public class CalendarioActivities extends AppCompatActivity {
 
             }
         });
+
+        escolherHora();
+
+    }
+
+        public void escolherHora(){
+
+            hourButton = (Button)findViewById(R.id.hourbutton);
+
+            hourButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDialog(dialogID);
+                }
+            });
+
+
         }
+
+        @Override
+        protected Dialog onCreateDialog(int id){
+
+            if(id == dialogID){
+                return new TimePickerDialog(CalendarioActivities.this, pimepickerlistener,hour,h_minute,false );
+            }
+            return null;
+
+
+        }
+
+
 
         /**
          * Este método é ativado quando o usuário clica no botão de Salvar Novo Evento na AgendaActivities.
@@ -152,8 +199,8 @@ public class CalendarioActivities extends AppCompatActivity {
 
 
             // Linkamos variáveis tipo EditText com os textos digitados pelo usuário no Layout.
-            EditText Hora = (EditText)findViewById(R.id.editText4);
-            EditText Tipo = (EditText)findViewById(R.id.editText5);
+            EditText Hora = (EditText)findViewById(R.id.hora);
+            EditText Tipo = (EditText)findViewById(R.id.tipo);
             EditText Anotacoes = (EditText)findViewById(R.id.editText6);
 
             //ORGANIZAMOS TODOS OS DADOS E CONVERTEMOS ELES PARA STRINGS
@@ -172,6 +219,17 @@ public class CalendarioActivities extends AppCompatActivity {
             evento.setHora(horaString);
             evento.setTipo(tipoString);
             evento.setAnotacoes(anotacoesString);
+
+
+            //Teste de conversão:
+           SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+            try{
+                evento.setDateVariable(formatter.parse(dataString));
+            }
+            catch(ParseException e){
+                Log.d("PARSER", "didn't work lol");
+            }
 
             String key = myRef.child("eventos").push().getKey();
 

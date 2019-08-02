@@ -1,6 +1,7 @@
 package com.colombelli.myapplication;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Esta classe tem como único objetivo estruturar o que é o objeto do tipo EVENTO, usado para
@@ -24,6 +25,7 @@ public class Evento implements Serializable {
     private String hora;
     private String tipo;
     private String anotacoes;
+    private Date dateVariable;
 
 
     //A PARTIR DAQUI É TUDO GET E SET
@@ -66,6 +68,10 @@ public class Evento implements Serializable {
         return anotacoes;
     }
 
+    public Date getDateVariable() {
+        return dateVariable;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -102,6 +108,13 @@ public class Evento implements Serializable {
         this.anotacoes = anotacoes;
     }
 
+
+    public void setDateVariable(Date dateVariable) {
+        this.dateVariable = dateVariable;
+    }
+
+
+
     @Override
     public String toString() {
         return "Evento{" +
@@ -114,6 +127,7 @@ public class Evento implements Serializable {
                 ", hora='" + hora + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", anotacoes='" + anotacoes + '\'' +
+                ", dateVariable='" + dateVariable + '\'' +
                 '}';
     }
 }
