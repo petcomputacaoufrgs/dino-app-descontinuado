@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,36 +30,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/hora"
-        android:layout_width="93dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/hourbutton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="@string/hora"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/hourbutton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendario"
-        app:layout_constraintVertical_bias="0.381" />
-
-    <EditText
         android:id="@+id/tipo"
-        android:layout_width="140dp"
-        android:layout_height="37dp"
+        android:layout_width="123dp"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/datacompleta"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="236dp"
         android:layout_marginLeft="236dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginRight="37dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
         android:layout_marginBottom="0dp"
         android:ems="10"
         android:hint="@string/tipo"
@@ -78,11 +59,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="144dp"
-        android:layout_marginLeft="144dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="125dp"
-        android:layout_marginRight="125dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginLeft="142dp"
+        android:layout_marginTop="214dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginRight="127dp"
         android:onClick="gravarEvento"
         android:text="@string/adicionar"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,13 +72,13 @@
     <EditText
         android:id="@+id/editText6"
         android:layout_width="wrap_content"
-        android:layout_height="57dp"
+        android:layout_height="88dp"
         android:layout_below="@+id/calendario"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:ems="10"
         android:hint="@string/anota_es"
         android:inputType="textPersonName"
@@ -119,24 +100,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="121dp" />
 
-    <Button
-        android:id="@+id/hourbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calendario"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="0dp"
-        android:text="Hora"
-        app:layout_constraintEnd_toStartOf="@+id/editText6"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="558dp" />
-
     <TextView
         android:id="@+id/datacompleta"
         android:layout_width="105dp"
@@ -154,6 +117,36 @@
         android:layout_marginRight="133dp"
         android:text="@string/data"
         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+    <TextView
+        android:id="@+id/horaView"
+        android:layout_width="78dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="31dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="455dp"
+        android:background="#5B2196F3"
+        android:gravity="center"
+        android:text="00:00"
+        android:textColor="#F0585858"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/horariosubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calendario"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="56dp"
+        android:text="Horário:"
+        android:textStyle="bold" />
 
 </RelativeLayout>
 </ScrollView>

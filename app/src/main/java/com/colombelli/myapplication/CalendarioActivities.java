@@ -52,6 +52,7 @@ public class CalendarioActivities extends AppCompatActivity {
 
     private String dataEscrita; //Strings Auxiliares.
     int hour, h_minute;
+    private TextView hourText;
     private String mesEscrito;
     private int dialogID = 0;
 
@@ -60,6 +61,8 @@ public class CalendarioActivities extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             hour = hourOfDay;
             h_minute = minute;
+            String horaString = String.format("%02d : %02d", hour, h_minute);
+            hourText.setText(horaString);
             Toast.makeText(CalendarioActivities.this,hour + " : " + h_minute, Toast.LENGTH_LONG).show();
         }
     };
@@ -159,9 +162,9 @@ public class CalendarioActivities extends AppCompatActivity {
 
         public void escolherHora(){
 
-            hourButton = (Button)findViewById(R.id.hourbutton);
+            hourText = (TextView) findViewById(R.id.horaView);
 
-            hourButton.setOnClickListener(new View.OnClickListener() {
+            hourText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showDialog(dialogID);

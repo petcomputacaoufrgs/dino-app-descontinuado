@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,15 +7,64 @@
     tools:context=".TelaInicial">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/agendabutton"
+        android:layout_width="107dp"
+        android:layout_height="58dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-137dp"
+        android:layout_marginEnd="143dp"
+        android:layout_marginRight="143dp"
+        android:gravity="center"
         android:onClick="abreAgenda"
         android:text="@string/agenda"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"
+        android:typeface="normal" />
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        android:layout_below="@+id/devs"
+        android:layout_marginTop="-167dp"
+        app:srcCompat="@drawable/tinydino" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginTop="110dp"
+        app:srcCompat="@drawable/dinoapp" />
+
+    <TextView
+        android:id="@+id/authors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginRight="77dp"
+        android:text="Sendo desenvolvido com carinho por:"
+        android:textColor="#C20303" />
+
+    <TextView
+        android:id="@+id/devs"
+        android:layout_width="71dp"
+        android:layout_height="112dp"
+        android:layout_below="@+id/authors"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginRight="164dp"
+        android:text="henrique, pedro, richard, duda, isis, marina, felipe"
+        android:textColor="#A80404" />
+
+</RelativeLayout>
