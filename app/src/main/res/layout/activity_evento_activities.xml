@@ -6,20 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".EventosActivities">
 
-    <TextView
+
+
+    <EditText
         android:id="@+id/EventoTIPO"
         android:layout_width="211dp"
         android:layout_height="65dp"
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
-        android:text="TextView"
+        android:text="EditText"
         android:textSize="@dimen/abc_action_button_min_height_material"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Tipo" />
+        android:background="@android:color/transparent" >
+    </EditText>
 
-    <TextView
+
+    <EditText
         android:id="@+id/EventoDATA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,9 +34,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EventoTIPO"
         tools:text="Data"
-        tools:textSize="36sp" />
+        tools:textSize="36sp"
+        android:background="@android:color/transparent" />
 
-    <TextView
+    <EditText
         android:id="@+id/EventoHORA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,9 +51,10 @@
         app:layout_constraintHorizontal_bias="0.753"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EventoTIPO"
-        tools:textSize="24sp" />
+        tools:textSize="24sp"
+        android:background="@android:color/transparent" />
 
-    <TextView
+    <EditText
         android:id="@+id/EventoANOTAC"
         android:layout_width="293dp"
         android:layout_height="77dp"
@@ -62,7 +68,8 @@
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EventoDATA"
-        tools:textSize="18sp" />
+        tools:textSize="18sp"
+        android:background="@android:color/transparent" />
 
     <Button
         android:id="@+id/button4"
@@ -73,6 +80,18 @@
         android:layout_marginTop="24dp"
         android:onClick="voltarAgenda"
         android:text="Voltar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventoANOTAC" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="24dp"
+        android:onClick="enviarEdicao"
+        android:text="Submit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EventoANOTAC" />
 

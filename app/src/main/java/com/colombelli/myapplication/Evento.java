@@ -17,6 +17,7 @@ import java.util.Date;
 public class Evento implements Serializable {
 
     private int id;
+    private String key;
     private String nome;
     private String data;
     private int dia;
@@ -68,8 +69,16 @@ public class Evento implements Serializable {
         return anotacoes;
     }
 
+    public String getKey() {
+        return key;
+    }
+
     public Date getDateVariable() {
         return dateVariable;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public void setId(int id) {

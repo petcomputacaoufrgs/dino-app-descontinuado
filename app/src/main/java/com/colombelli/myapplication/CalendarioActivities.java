@@ -239,6 +239,8 @@ public class CalendarioActivities extends AppCompatActivity {
 
             String key = myRef.child("eventos").push().getKey(); //cria o id unico para o evento novo
 
+            evento.setKey(key);
+
             myRef.child("eventos").child(key).setValue(evento); //insere o evento novo com esse id
 
             //Adicionamos o Novo Evento ao banco de dados, e checamos resultado da operação.
